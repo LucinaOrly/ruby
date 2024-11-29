@@ -17,14 +17,14 @@ class Shape
 end
 
 # these do not include irregular polygons rn
-class Polygon < Shape
+class RegularPolygon < Shape
+    attr_reader :length :num_of_sides :apothem
     def initialize(color, length=1, num_of_sides=3, apothem=1)
-        super(area)
         if num_of_sides < 3
-            
         @length = length
         @num_of_sides = num_of_sides
         @apothem = apothem
+        super(color, area, perimeter)
     end 
     def area
         return perimeter * apothem / 2
@@ -32,5 +32,20 @@ class Polygon < Shape
     def perimeter
         return length * num_of_sides
     end
+end
+
+class Quadrilateral < Polygon
+    attr_reader :sides 
+    def initialize(color, sides)
+        @sides = sides
+        super (color, length, 4, 2)
+    end
+    def length
+        length = 0
+        sides.each { |side| length += side}
+        return length
+    end
+end
+
 
     
